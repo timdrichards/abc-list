@@ -33,7 +33,9 @@ jobs:
           # Serve from https://<user>.github.io/<repo>/, so assets need the repo prefix.
           VITE_BASE: /${{ github.event.repository.name }}/
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          # Supabase renamed the browser-safe key; fall back to an older secret
+          # named VITE_SUPABASE_ANON_KEY if that is what is already set.
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_FAMILY_EMAIL: ${{ secrets.VITE_FAMILY_EMAIL }}
         run: npm run build
 

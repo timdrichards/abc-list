@@ -24,8 +24,8 @@ This app does it properly instead:
 So the browser never decides who gets in. Without the password there is no token, and
 without a token the database returns nothing.
 
-The `anon` key that ships in the bundle is **public by design**. It names the project, it
-does not grant access. Supabase publishes it for exactly this use.
+The **publishable** key that ships in the bundle is **public by design**. It names the
+project, it does not grant access. Supabase publishes it for exactly this use.
 
 What this protects against: strangers finding the URL, search engines, anyone poking at
 the site. What it does not protect against: someone your family gives the password to, or
@@ -65,8 +65,9 @@ Everyone in the family signs in as this one account. That is what makes the boar
 
 ### 4. Close the door behind you
 
-**Authentication → Sign In / Providers → Email**, and turn **off** "Allow new users to
-sign up".
+In the **Authentication** section, find the setting **"Allow new users to sign up"** and
+turn it **off**. Supabase moves this one around between dashboard versions, so if it is
+not where you expect, search the dashboard for that phrase.
 
 Do not skip this. Without it, anybody could register their own account on your project.
 They would not see your lists, since the policies in step 2 stop that, but there is no reason
@@ -74,10 +75,24 @@ to let strangers create accounts at all.
 
 ### 5. Collect the two settings
 
-**Project Settings → API**, and copy:
+Click **Connect** at the top of the project dashboard. It shows the project URL and the
+publishable key side by side, ready to copy:
 
 - **Project URL** → `VITE_SUPABASE_URL`
-- **anon / public** key → `VITE_SUPABASE_ANON_KEY`
+- **Publishable key**, starting `sb_publishable_` → `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+If the Connect dialog shows no publishable key, go to **Settings → API Keys** and create
+one. That page also lists every key the project has.
+
+Two things worth knowing, because most tutorials still describe the old setup:
+
+- Supabase renamed these keys in 2025. What used to be called the **anon / public** key
+  is now the **publishable** key. The old name still works but is deprecated at the end
+  of 2026, so use the new one.
+- There is **no longer a Settings → API page**. Keys live under **Settings → API Keys**.
+
+Do not use the **secret** key (`sb_secret_`). It bypasses row level security and must
+never reach a browser.
 
 ### 6. Run it locally (optional, but worth doing once)
 
@@ -85,7 +100,7 @@ to let strangers create accounts at all.
 cp .env.example .env.local
 ```
 
-Fill in the URL, the anon key, and the family email from step 3, then:
+Fill in the URL, the publishable key, and the family email from step 3, then:
 
 ```bash
 npm install && npm run dev
@@ -103,7 +118,7 @@ gh repo create abc-list --public --source=. --remote=origin --push
 
 On a free GitHub account, Pages needs a public repository. That is fine here: the
 repository holds no secrets. The Supabase settings are injected at build time from the
-secrets below, and the anon key is public by design anyway.
+secrets below, and the publishable key is public by design anyway.
 
 Add the three build secrets under **Settings → Secrets and variables → Actions → New
 repository secret**, named exactly:
@@ -111,13 +126,13 @@ repository secret**, named exactly:
 | Secret | Value |
 | --- | --- |
 | `VITE_SUPABASE_URL` | Project URL from step 5 |
-| `VITE_SUPABASE_ANON_KEY` | anon / public key from step 5 |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Publishable key from step 5 |
 | `VITE_FAMILY_EMAIL` | The email from step 3 |
 
 Or from the terminal:
 
 ```bash
-gh secret set VITE_SUPABASE_URL && gh secret set VITE_SUPABASE_ANON_KEY && gh secret set VITE_FAMILY_EMAIL
+gh secret set VITE_SUPABASE_URL && gh secret set VITE_SUPABASE_PUBLISHABLE_KEY && gh secret set VITE_FAMILY_EMAIL
 ```
 
 Then **Settings → Pages → Source → GitHub Actions**, and either push again or run the

@@ -12,7 +12,7 @@ function NotConfigured() {
       <h1>This build has no Supabase settings</h1>
       <p>
         The app was built without <code>VITE_SUPABASE_URL</code>,{' '}
-        <code>VITE_SUPABASE_ANON_KEY</code>, or <code>VITE_FAMILY_EMAIL</code>.
+        <code>VITE_SUPABASE_PUBLISHABLE_KEY</code>, or <code>VITE_FAMILY_EMAIL</code>.
       </p>
       <p>
         Locally, copy <code>.env.example</code> to <code>.env.local</code> and fill it in. For the
