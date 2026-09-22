@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { LISTS, type Item } from '../lib/types'
+import type { Item } from '../lib/types'
 
 interface Props {
   items: Item[]
@@ -115,7 +115,7 @@ export function Archive({ items, onRestore, onDelete, onClose }: Props) {
                         <span
                           className={`archived__tag archived__tag--${item.completed_from ?? item.list}`}
                         >
-                          {LISTS[item.completed_from ?? item.list].title.replace(/ — .*/, '')}
+                          {item.completed_from ?? item.list}
                         </span>
                         {timeFormat.format(new Date(item.completed_at!))}
                       </span>

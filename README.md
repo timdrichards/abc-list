@@ -24,7 +24,7 @@ This app does it properly instead:
 So the browser never decides who gets in. Without the password there is no token, and
 without a token the database returns nothing.
 
-The `anon` key that ships in the bundle is **public by design** — it names the project, it
+The `anon` key that ships in the bundle is **public by design**. It names the project, it
 does not grant access. Supabase publishes it for exactly this use.
 
 What this protects against: strangers finding the URL, search engines, anyone poking at
@@ -69,7 +69,7 @@ Everyone in the family signs in as this one account. That is what makes the boar
 sign up".
 
 Do not skip this. Without it, anybody could register their own account on your project.
-They would not see your lists — the policies in step 2 stop that — but there is no reason
+They would not see your lists, since the policies in step 2 stop that, but there is no reason
 to let strangers create accounts at all.
 
 ### 5. Collect the two settings
@@ -105,8 +105,8 @@ On a free GitHub account, Pages needs a public repository. That is fine here: th
 repository holds no secrets. The Supabase settings are injected at build time from the
 secrets below, and the anon key is public by design anyway.
 
-Add the three build secrets — **Settings → Secrets and variables → Actions → New
-repository secret** — named exactly:
+Add the three build secrets under **Settings → Secrets and variables → Actions → New
+repository secret**, named exactly:
 
 | Secret | Value |
 | --- | --- |
@@ -128,15 +128,15 @@ workflow by hand from the **Actions** tab. The site lands at
 
 ## Using it
 
-- **Add** — type in the box at the bottom of a column and press Enter.
-- **Move** — drag by the grip on the left of a card. On a phone, press and hold briefly
+- **Add.** Type in the box at the bottom of a column and press Enter.
+- **Move.** Drag by the grip on the left of a card. On a phone, press and hold briefly
   first so the page can still scroll. The **⋯** menu has "Move to" as an alternative, which
   also works with a keyboard and a screen reader.
-- **Reorder** — drag up and down inside a column.
-- **Complete** — click the circle. The item moves to the archive; nothing is deleted.
-- **Archive** — the button in the top right. Search it, restore anything back to the
+- **Reorder.** Drag up and down inside a column.
+- **Complete.** Click the circle. The item moves to the archive; nothing is deleted.
+- **Archive.** The button in the top right. Search it, restore anything back to the
   column it came from, or delete for good.
-- **Edit** — click an item's text. Enter saves, Escape cancels.
+- **Edit.** Click an item's text. Enter saves, Escape cancels.
 
 Two people with the board open see each other's changes live.
 
@@ -150,7 +150,7 @@ Signing in lasts until you sign out, so the family only types the password once 
 and recreate it). Everyone signed in stays signed in until their session expires, so sign
 out on any device you want locked out immediately.
 
-Nothing needs rebuilding — the password is not part of the site.
+Nothing needs rebuilding, because the password is not part of the site.
 
 ---
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { SortableItem } from './SortableItem'
-import { LISTS, type Item, type ListKey } from '../lib/types'
+import { LISTS, listLabel, type Item, type ListKey } from '../lib/types'
 
 interface Props {
   list: ListKey
@@ -30,14 +30,17 @@ export function Column({ list, items, onAdd, onComplete, onRename, onDelete, onM
   }
 
   return (
-    <section className={`column column--${list}${isOver ? ' column--over' : ''}`} aria-label={meta.title}>
+    <section
+      className={`column column--${list}${isOver ? ' column--over' : ''}`}
+      aria-label={listLabel(list)}
+    >
       <header className="column__head">
         <div className="column__heading">
           <span className={`column__badge column__badge--${list}`} aria-hidden="true">
             {list}
           </span>
           <div>
-            <h2 className="column__title">{meta.title.replace(/^[ABC] — /, '')}</h2>
+            <h2 className="column__title">{meta.title}</h2>
             <p className="column__blurb">{meta.blurb}</p>
           </div>
         </div>

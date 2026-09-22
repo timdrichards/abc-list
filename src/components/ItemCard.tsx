@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
-import { LIST_KEYS, LISTS, type Item, type ListKey } from '../lib/types'
+import { LIST_KEYS, listLabel, type Item, type ListKey } from '../lib/types'
 
 interface Props {
   item: Item
@@ -110,7 +110,7 @@ export function ItemCard({
           className="card__check"
           onClick={() => onComplete(item.id)}
           aria-label={`Complete "${item.text}"`}
-          title="Complete — moves to the archive"
+          title="Complete, moving it to the archive"
         >
           <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
             <path d="M3.5 8.5l3 3 6-6" />
@@ -175,7 +175,7 @@ export function ItemCard({
                   }}
                 >
                   <span className={`menu__dot menu__dot--${key}`} aria-hidden="true" />
-                  {LISTS[key].title}
+                  {listLabel(key)}
                 </button>
               ))}
               <hr className="menu__rule" />

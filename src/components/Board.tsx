@@ -18,7 +18,7 @@ import { ItemCard } from './ItemCard'
 import type { ItemsApi } from '../hooks/useItems'
 import { LIST_KEYS, isListKey, type Board as BoardState, type Item, type ListKey } from '../lib/types'
 
-/** Which column holds this id — or the id itself when it *is* a column. */
+/** Which column holds this id, or the id itself when it *is* a column. */
 function containerOf(board: BoardState, id: string): ListKey | null {
   if (isListKey(id)) return id
   return LIST_KEYS.find((key) => board[key].some((item) => item.id === id)) ?? null

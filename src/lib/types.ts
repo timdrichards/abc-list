@@ -9,9 +9,14 @@ export interface ListMeta {
 }
 
 export const LISTS: Record<ListKey, ListMeta> = {
-  A: { key: 'A', title: 'A — Today', blurb: 'Must happen today' },
-  B: { key: 'B', title: 'B — This week', blurb: 'Needs to happen this week' },
-  C: { key: 'C', title: 'C — Eventually', blurb: 'Needs to happen eventually' },
+  A: { key: 'A', title: 'Today', blurb: 'Must happen today' },
+  B: { key: 'B', title: 'This week', blurb: 'Needs to happen this week' },
+  C: { key: 'C', title: 'Eventually', blurb: 'Needs to happen eventually' },
+}
+
+/** "A · Today", for places that need the letter and the name together. */
+export function listLabel(key: ListKey): string {
+  return `${key} · ${LISTS[key].title}`
 }
 
 export interface Item {
