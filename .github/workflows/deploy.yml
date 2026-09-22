@@ -28,6 +28,22 @@ jobs:
 
       - run: npm ci
 
+      - name: Check the required secrets are set
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_FAMILY_EMAIL: ${{ secrets.VITE_FAMILY_EMAIL }}
+        run: |
+          missing=""
+          [ -n "$VITE_SUPABASE_URL" ] || missing="$missing VITE_SUPABASE_URL"
+          [ -n "$VITE_SUPABASE_PUBLISHABLE_KEY" ] || missing="$missing VITE_SUPABASE_PUBLISHABLE_KEY"
+          [ -n "$VITE_FAMILY_EMAIL" ] || missing="$missing VITE_FAMILY_EMAIL"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secrets:$missing"
+            echo "::error::Add them under Settings > Secrets and variables > Actions, then re-run this workflow."
+            exit 1
+          fi
+
       - name: Build
         env:
           # Serve from https://<user>.github.io/<repo>/, so assets need the repo prefix.
@@ -38,13 +54,6 @@ jobs:
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_FAMILY_EMAIL: ${{ secrets.VITE_FAMILY_EMAIL }}
         run: npm run build
-
-      - name: Fail early if the secrets were not set
-        run: |
-          if grep -rq "your-project-ref.supabase.co" dist/assets 2>/dev/null; then
-            echo "::error::Build used placeholder Supabase settings. Add the three repository secrets and re-run."
-            exit 1
-          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:
